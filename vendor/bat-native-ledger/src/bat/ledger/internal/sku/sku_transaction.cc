@@ -132,6 +132,7 @@ void SKUTransaction::OnTransfer(
       transaction_new,
       callback);
 
+  // We save SKUTransactionStatus::COMPLETED status in this call
   ledger_->SaveSKUExternalTransaction(
       transaction.transaction_id,
       external_transaction_id,

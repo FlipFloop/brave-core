@@ -3,13 +3,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-#ifndef BRAVELEDGER_SKU_ORDER_H_
-#define BRAVELEDGER_SKU_ORDER_H_
+#ifndef BRAVELEDGER_SKU_COMMON_H_
+#define BRAVELEDGER_SKU_COMMON_H_
 
-#include <map>
+#include <memory>
 #include <string>
 #include <vector>
 
+#include "bat/ledger/internal/sku/sku_order.h"
+#include "bat/ledger/internal/sku/sku_transaction.h"
 #include "bat/ledger/ledger.h"
 
 namespace bat_ledger {
@@ -18,31 +20,36 @@ class LedgerImpl;
 
 namespace braveledger_sku {
 
-class SKUOrder {
+class SKUCommon {
  public:
-  explicit SKUOrder(bat_ledger::LedgerImpl* ledger);
-  ~SKUOrder();
+  explicit SKUCommon(bat_ledger::LedgerImpl* ledger);
+  ~SKUCommon();
 
-  void Create(
+  void CreateOrder(
       const std::vector<ledger::SKUOrderItem>& items,
       ledger::SKUOrderCallback callback);
 
- private:
-  void OnCreate(
-      const int response_status_code,
-      const std::string& response,
-      const std::map<std::string, std::string>& headers,
-      const std::vector<ledger::SKUOrderItem>& order_items,
+  void CreateTransaction(
+      ledger::SKUOrderPtr order,
+      const std::string& destination,
+      const ledger::ExternalWallet& wallet,
       ledger::SKUOrderCallback callback);
 
-  void OnCreateSave(
+  void SendExternalTransaction(
+      const std::string& order_id,
+      ledger::SKUOrderCallback callback);
+
+ private:
+  void OnTransactionCompleted(
       const ledger::Result result,
       const std::string& order_id,
       ledger::SKUOrderCallback callback);
 
   bat_ledger::LedgerImpl* ledger_;  // NOT OWNED
+  std::unique_ptr<SKUOrder> order_;
+  std::unique_ptr<SKUTransaction> transaction_;
 };
 
 }  // namespace braveledger_sku
 
-#endif  // BRAVELEDGER_SKU_ORDER_H_
+#endif  // BRAVELEDGER_SKU_COMMON_H_

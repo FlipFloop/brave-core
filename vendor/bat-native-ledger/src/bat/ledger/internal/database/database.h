@@ -87,9 +87,13 @@ class Database {
       const int year,
       ledger::GetContributionReportCallback callback);
 
-  void GetIncompleteContributions(
-      const ledger::ContributionProcessor processor,
+  void GetNotCompletedContributions(
       ledger::ContributionInfoListCallback callback);
+
+  void UpdateContributionInfoStep(
+      const std::string& contribution_id,
+      const ledger::ContributionStep step,
+      ledger::ResultCallback callback);
 
   void UpdateContributionInfoStepAndCount(
       const std::string& contribution_id,
@@ -283,6 +287,15 @@ class Database {
   void GetSKUOrder(
       const std::string& order_id,
       ledger::GetSKUOrderCallback callback);
+
+  void GetSKUOrderByContributionId(
+      const std::string& contribution_id,
+      ledger::GetSKUOrderCallback callback);
+
+  void SaveContributionIdForSKUOrder(
+      const std::string& order_id,
+      const std::string& contribution_id,
+      ledger::ResultCallback callback);
 
   /**
    * SKU TRANSACTION
