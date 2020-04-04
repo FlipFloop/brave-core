@@ -216,7 +216,7 @@ TEST_F(AdsTabsTest, TabUpdated_Active) {
   auto last_user_activity = ads_->client_->GetLastUserActivity();
 
   EXPECT_CALL(*mock_ads_client_, Save(_, _, _))
-      .Times(3);
+      .Times(1);
 
   EXPECT_CALL(*mock_ads_client_, EventLog(_))
       .Times(1);
