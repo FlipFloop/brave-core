@@ -11,6 +11,7 @@ import {
   MainPanel,
   Content,
   TopBar,
+  TitleContainer,
   DialogTitleIcon,
   CloseButton,
   BatText
@@ -28,12 +29,14 @@ export function DialogFrame (props: DialogFrameProps) {
   return (
     <MainPanel showBackground={props.showBackground}>
       <TopBar>
+        <TitleContainer>
         {
           !props.showTitle ? null : <>
             <DialogTitleIcon />
             <BatText>{locale.get('bat')}</BatText> {locale.get('checkout')}
           </>
         }
+        </TitleContainer>
         <CloseButton onClick={props.onClose}>
           <CloseStrokeIcon />
         </CloseButton>

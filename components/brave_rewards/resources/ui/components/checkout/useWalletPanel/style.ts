@@ -24,12 +24,14 @@ export const WalletInfoPanel = styled.div<{ hasSufficientFunds?: boolean }>`
 `
 
 export const BatIcon = styled(BatColorIcon)`
-  height: 22px;
-  width: 22px;
-  position: absolute;
-  top: 1px;
+  height: 24px;
+  width: 24px;
+  position: relative;
+  top: -4px;
   left: 0;
   opacity: 1;
+  vertical-align: middle;
+  display: inline-block;
 `
 
 export const ActionPanel = styled.div`
@@ -46,7 +48,7 @@ export const ActionPanelButton = styled(Button as ComponentType<ButtonProps>)`
 
 export const BatAmount = styled.span`
   font-size: 22px;
-  padding-left: 31px;
+  padding-left: 8px;
 `
 
 export const BatSymbol = styled.span`
@@ -64,7 +66,7 @@ export const LastUpdated = styled.div`
   font-family: ${p => p.theme.fontFamily.body};
   font-size: 12px;
   color: ${p => p.theme.palette.grey500};
-  padding-top: 10px;
+  padding-top: 7px;
   padding-left: 2px;
   opacity: 1;
 `

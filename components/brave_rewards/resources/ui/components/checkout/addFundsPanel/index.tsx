@@ -5,6 +5,7 @@
 import * as React from 'react'
 
 import { LocaleContext } from '../localeContext'
+import { DialogTitle } from '../dialogTitle'
 import { FormSection } from '../formSection'
 import { CreditCardForm, CreditCardFormHandle, CreditCardDetails } from '../creditCardForm'
 import { GoBackLink } from '../goBackLink'
@@ -120,7 +121,7 @@ export function AddFundsPanel (props: AddFundsPanelProps) {
 
   return (
     <>
-      <h1>{locale.get('addFundsTitle')}</h1>
+      <DialogTitle>{locale.get('addFundsTitle')}</DialogTitle>
       <Subtitle>
         {locale.get('addFundsSubtitle')}
       </Subtitle>

@@ -10,51 +10,50 @@ export const Container = styled.div`
   margin: 32px auto 10px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+`
+
+export const InputBox = styled.span<{ invalid?: boolean }>`
+  margin-top: 6px;
+  padding: 8px 10px;
+  display: flex;
+  width: 100%;
+  border: 1px solid ${p => p.invalid
+    ? p.theme.color.warn
+    : p.theme.palette.blurple300};
+  border-radius: 3px;
+  background: ${p => p.theme.palette.white};
+
+  &:focus-within {
+    border-color: ${p => p.invalid
+      ? p.theme.color.warn
+      : p.theme.palette.blurple300};
+  }
 
   input {
-    margin-top: 6px;
-    border: 1px solid ${p => p.theme.palette.grey300};
-    border-radius: 3px;
-    padding: 8px 10px;
+    flex-grow: 1;
+    display: inline-block;
+    vertical-align: middle;
     outline: unset;
     font-size: 14px;
     font-family: ${p => p.theme.fontFamily.body};
     width: 100%;
-
-    &:focus {
-      border-color: ${p => p.theme.palette.blurple300};
-    }
-
-    &.invalid {
-      border-color: ${p => p.theme.color.warn};
-    }
+    border: none;
   }
 `
 
-export const InputIconContainer = styled.div`
-  position: relative;
-  top: 0;
-  left: 0;
-  height: 0;
-`
-
 export const DefaultCardIcon = styled(CreditCardIcon)`
-  position: absolute;
-  top: -28px;
-  left: 7px;
   width: 22px;
   height: 22px;
   color: ${p => p.theme.palette.grey400};
   opacity: .668;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
 `
 
 export const CardNumber = styled.div`
   grid-column: 1 / 3;
   margin-bottom: 18px;
-
-  input {
-    padding-left: 36px;
-  }
 `
 
 export const Expiration = styled.div`

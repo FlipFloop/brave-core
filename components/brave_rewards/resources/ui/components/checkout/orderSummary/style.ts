@@ -8,29 +8,29 @@ export const Container = styled.div`
   padding: 7px 15px 28px;
   border-top: solid 1px ${p => p.theme.color.separatorLine};
   border-bottom: solid 1px ${p => p.theme.color.separatorLine};
+`
 
-  table {
-    border-collapse: collapse;
-    width: 100%;
+export const StyledTable = styled.table`
+  border-collapse: collapse;
+  width: 100%;
+`
 
-    td, th {
-      padding: 0;
-      text-align: left;
-      vertical-align: top;
-      line-height: 22px;
-      min-width: 96px;
-    }
+export const StyledTableHeader = styled.th`
+  padding: 4px 0 0 0;
+  text-align: left;
+  vertical-align: top;
+  line-height: 22px;
+  min-width: 96px;
+  color: ${p => p.theme.palette.blurple600};
+  font-weight: 500;
+`
 
-    th {
-      color: ${p => p.theme.palette.blurple600};
-      font-weight: 500;
-      padding-top: 4px;
-    }
-
-    td {
-      padding-top: 8px;
-    }
-  }
+export const StyledTableCell = styled.td`
+  padding: 8px 0 0 0;
+  text-align: left;
+  vertical-align: top;
+  line-height: 22px;
+  min-width: 96px;
 `
 
 export const Description = styled.div`

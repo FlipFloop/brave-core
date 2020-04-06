@@ -4,18 +4,17 @@
 
 import styled from 'styled-components'
 
+import { CaratStrongLeftIcon } from 'brave-ui/components/icons'
+
 export const Container = styled.span`
   display: inline-block;
-  position: relative;
-  top: 0;
-  left: 0;
-  padding-left: 35px;
+  padding-left: 13px;
+`
 
-  svg {
-    position: absolute;
-    top: 0;
-    left: 13px;
-    height: 15px;
-    width: 15px;
-  }
+export const LeftIcon = styled(CaratStrongLeftIcon)`
+  height: 15px;
+  width: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
 `

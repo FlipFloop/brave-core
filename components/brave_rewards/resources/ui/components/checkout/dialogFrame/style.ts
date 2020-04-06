@@ -31,24 +31,28 @@ export const MainPanel = styled.div<{ showBackground?: boolean }>`
 `
 
 export const TopBar = styled.div`
-  padding: 15px 22px 15px 35px;
-  position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
+  padding: 15px 15px 8px;
+  display: flex;
+`
+
+export const TitleContainer = styled.div`
   color: ${p => p.theme.palette.grey600};
   font-weight: 500;
   font-family: ${p => p.theme.fontFamily.heading};
   font-size: 12px;
   text-transform: uppercase;
+  flex-grow: 1;
 `
 
 export const DialogTitleIcon = styled(BatColorIcon)`
-  position: absolute;
-  top: 13px;
-  left: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+  left: 0;
   height: 17px;
   width: auto;
+  padding-right: 4px;
 `
 
 export const BatText = styled.span`
@@ -56,9 +60,6 @@ export const BatText = styled.span`
 `
 
 export const CloseButton = styled.button`
-  top: 22px;
-  right: 22px;
-  position: absolute;
   background: none;
   border: none;
   padding: 0;
@@ -66,17 +67,9 @@ export const CloseButton = styled.button`
   width: 14px;
   height: 14px;
   color: ${p => p.theme.palette.neutral600};
+  margin: 7px 6px 0 0;
 `
 
 export const Content = styled.div`
   padding: 8px 49px 34px;
-
-  h1 {
-    margin: 0 0 18px 0;
-    text-align: center;
-    font-weight: 500;
-    font-family: ${p => p.theme.fontFamily.heading};
-    font-size: 22px;
-    color: ${p => p.theme.color.grey800};
-  }
 `

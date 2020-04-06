@@ -13,9 +13,18 @@ interface InputDictionary {
 }
 
 interface BehaviorsInit {
+
+  // A dictionary containing references to credit card <input>
+  // elements.
   inputs: InputDictionary,
-  expiryFormat?: ExpiryFormat
+
+  // Called when the inferred credit card type has changed.
   onCardTypeChange?: (cardType: CardType | null) => void
+
+  // Called when validation is performed on an input. If the
+  // input is valid, then the `error.type` property will equal
+  // the empty string.
+  onInputValidation?: (error: CreditCardError) => void
 }
 
 // Attaches dynamic behavior to credit card input elements and
@@ -28,13 +37,14 @@ export class Behaviors {
   cardType: CardType | null
   expiryFormat: ExpiryFormat
   onCardTypeChange?: (cardType: CardType | null) => void
-  onInvalidInput?: (error: CreditCardError) => void
+  onInputValidation?: (error: CreditCardError) => void
 
   constructor (init: BehaviorsInit) {
     this.inputs = init.inputs
-    this.expiryFormat = init.expiryFormat || new ExpiryFormat()
+    this.expiryFormat = new ExpiryFormat()
     this.cardType = null
     this.onCardTypeChange = init.onCardTypeChange
+    this.onInputValidation = init.onInputValidation
 
     this._attachCardNumberHandlers()
     this._attachExpiryHandlers()
@@ -167,7 +177,7 @@ export class Behaviors {
           return 'invalid-card-number'
         }
       }
-      return null
+      return ''
     })
   }
 
@@ -180,7 +190,7 @@ export class Behaviors {
       if (error) {
         return 'invalid-expiry'
       }
-      return null
+      return ''
     })
   }
 
@@ -195,21 +205,20 @@ export class Behaviors {
           return 'invalid-security-code'
         }
       }
-      return null
+      return ''
     })
   }
 
   _runValidator (
     element: HTMLInputElement,
-    fn: (value: string) => CreditCardErrorType | null
+    fn: (value: string) => CreditCardErrorType
   ): Array<CreditCardError> {
-    const error = fn(element.value)
-    element.dataset.validationError = error || ''
-    element.classList.toggle('invalid', Boolean(error))
-    if (error) {
-      return [{ type: error, element }]
+    const error = { type: fn(element.value), element }
+    const { onInputValidation } = this
+    if (onInputValidation) {
+      onInputValidation(error)
     }
-    return []
+    return error.type ? [error] : []
   }
 
 }

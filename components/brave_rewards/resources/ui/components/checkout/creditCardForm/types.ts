@@ -3,6 +3,7 @@
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 export type CreditCardErrorType =
+  '' |
   'required-input' |
   'invalid-card-number' |
   'invalid-expiry' |

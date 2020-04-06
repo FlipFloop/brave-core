@@ -3,10 +3,9 @@
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import * as React from 'react'
-import { CaratStrongLeftIcon } from 'brave-ui/components/icons'
 
 import { LocaleContext } from '../localeContext'
-import { Container } from './style'
+import { Container, LeftIcon } from './style'
 
 interface GoBackLinkProps {
   onClick: () => void
@@ -21,7 +20,7 @@ export function GoBackLink (props: GoBackLinkProps) {
   return (
     <Container>
       <a href='#' onClick={handleClick}>
-        <CaratStrongLeftIcon />
+        <LeftIcon />
         {locale.get('goBack')}
       </a>
     </Container>

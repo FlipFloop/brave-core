@@ -4,18 +4,12 @@
 
 import * as React from 'react'
 
-import { Box, Header } from './style'
+import { StyledHeader } from './style'
 
-interface FormSectionProps {
-  title: React.ReactNode
+interface DialogTitleProps {
   children: React.ReactNode
 }
 
-export function FormSection (props: FormSectionProps) {
-  return (
-    <Box>
-      <Header>{props.title}</Header>
-      {props.children}
-    </Box>
-  )
+export function DialogTitle (props: DialogTitleProps) {
+  return <StyledHeader>{props.children}</StyledHeader>
 }

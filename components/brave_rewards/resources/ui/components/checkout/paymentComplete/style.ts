@@ -17,17 +17,17 @@ export const ImageContainer = styled.div`
 
 export const TextContainer = styled.div`
   padding: 18px 21px 0 0;
+`
 
-  h2 {
-    font-size: 22px;
-    font-weight: 500;
-    margin: 0;
-    color: ${p => p.theme.palette.neutral700};
-  }
+export const Header = styled.h2`
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0;
+  color: ${p => p.theme.palette.neutral700};
+`
 
-  p {
-    margin-top: 12px;
-    font-family: ${p => p.theme.fontFamily.body};
-    font-size: 16px;
-  }
+export const Text = styled.p`
+  margin-top: 12px;
+  font-family: ${p => p.theme.fontFamily.body};
+  font-size: 16px;
 `

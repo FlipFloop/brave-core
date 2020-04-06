@@ -13,14 +13,14 @@ export const Box = styled.div`
   position: relative;
   top: 0;
   left: 0;
+`
 
-  h2 {
-    font-weight: 500;
-    font-family: ${p => p.theme.fontFamily.heading};
-    font-size: 14px;
-    color: ${p => p.theme.palette.blurple600};
-    margin: 0 0 5px 0;
-    display: flex;
-    justify-content: space-between;
-  }
+export const Header = styled.h2`
+  font-weight: 500;
+  font-family: ${p => p.theme.fontFamily.heading};
+  font-size: 14px;
+  color: ${p => p.theme.palette.blurple600};
+  margin: 0 0 5px 0;
+  display: flex;
+  justify-content: space-between;
 `

@@ -8,19 +8,23 @@ import { Toggle } from 'brave-ui/components'
 import { LocaleContext } from '../localeContext'
 import { Behaviors } from './behaviors'
 import { getCreditCardIcon } from './icons'
-import { CreditCardDetails, CreditCardError } from './types'
+import { CreditCardDetails, CreditCardError, CreditCardErrorType } from './types'
 
 import {
   Container,
+  InputBox,
   CardNumber,
   Expiration,
   SecurityCode,
   SaveThisCard,
-  SaveThisCardLabel,
-  InputIconContainer
+  SaveThisCardLabel
 } from './style'
 
 export { CreditCardDetails }
+
+function useCardErrorState () {
+  return React.useState<CreditCardErrorType>('')
+}
 
 export interface CreditCardFormHandle {
   focus: () => void
@@ -35,54 +39,82 @@ interface CreditCardFormProps {
 export function CreditCardForm (props: CreditCardFormProps) {
   const locale = React.useContext(LocaleContext)
 
-  const [cardTypeId, setCardTypeId] = React.useState('')
-
-  const [saveCardChecked, setSaveCardChecked] = React.useState(true)
-  const toggleSaveCard = () => { setSaveCardChecked(!saveCardChecked) }
-
+  // Internal ref for Behavior instance associated with form
   const behaviorsRef = React.useRef<Behaviors | null>(null)
+
+  // Refs for input elements
   const cardNumberRef = React.useRef<HTMLInputElement>(null)
   const expiryRef = React.useRef<HTMLInputElement>(null)
   const securityCodeRef = React.useRef<HTMLInputElement>(null)
 
+  // Form state
+  const [saveCardChecked, setSaveCardChecked] = React.useState(true)
+  const [cardTypeId, setCardTypeId] = React.useState('')
+  const [cardNumberError, setCardNumberError] = useCardErrorState()
+  const [expiryError, setExpiryError] = useCardErrorState()
+  const [securityCodeError, setSecurityCodeError] = useCardErrorState()
+
   React.useEffect(() => {
-    let behaviors = behaviorsRef.current
-    if (!behaviors) {
-      behaviorsRef.current = behaviors = new Behaviors({
-        inputs: {
-          cardNumber: cardNumberRef.current!,
-          expiry: expiryRef.current!,
-          securityCode: securityCodeRef.current!
-        },
-        onCardTypeChange: (cardType) => {
-          setCardTypeId(cardType ? cardType.id : '')
+    // Create a Behaviors instance after first render
+    behaviorsRef.current = new Behaviors({
+      inputs: {
+        cardNumber: cardNumberRef.current!,
+        expiry: expiryRef.current!,
+        securityCode: securityCodeRef.current!
+      },
+      onCardTypeChange: (cardType) => {
+        setCardTypeId(cardType ? cardType.id : '')
+      },
+      onInputValidation: (error) => {
+        switch (error.element) {
+          case cardNumberRef.current:
+            setCardNumberError(error.type)
+            break
+          case expiryRef.current:
+            setExpiryError(error.type)
+            break
+          case securityCodeRef.current:
+            setSecurityCodeError(error.type)
+            break
         }
-      })
-    }
-    props.handleRef.current = behaviors
-  })
+      }
+    })
+  }, [])
+
+  React.useEffect(() => {
+    // Expose Behaviors instance to callers through
+    // the `handleRef` property.
+    props.handleRef.current = behaviorsRef.current
+  }, [props.handleRef])
 
   const CardIcon = getCreditCardIcon(cardTypeId)
+  const toggleSaveCard = () => { setSaveCardChecked(!saveCardChecked) }
 
   return (
     <Container>
       <CardNumber>
         <label>
           {locale.get('cardNumber')}
-          <input ref={cardNumberRef} autoComplete='cc-number' />
-          <InputIconContainer><CardIcon /></InputIconContainer>
+          <InputBox invalid={Boolean(cardNumberError)}>
+            <CardIcon />
+            <input ref={cardNumberRef} autoComplete='cc-number' />
+          </InputBox>
         </label>
       </CardNumber>
       <Expiration>
         <label>
           {locale.get('expiration')}
-          <input ref={expiryRef} placeholder={'MM/YY'} autoComplete='cc-exp' />
+          <InputBox invalid={Boolean(expiryError)}>
+            <input ref={expiryRef} placeholder={'MM/YY'} autoComplete='cc-exp' />
+          </InputBox>
         </label>
       </Expiration>
       <SecurityCode>
         <label>
           {locale.get('securityCode')}
-          <input ref={securityCodeRef} autoComplete='cc-cvc' />
+          <InputBox invalid={Boolean(securityCodeError)}>
+            <input ref={securityCodeRef} autoComplete='cc-cvc' />
+          </InputBox>
         </label>
       </SecurityCode>
       <SaveThisCard>

@@ -5,6 +5,7 @@
 import * as React from 'react'
 
 import { LocaleContext } from '../localeContext'
+import { DialogTitle } from '../dialogTitle'
 import { OrderSummary } from '../orderSummary'
 import { UseWalletPanel } from '../useWalletPanel'
 import { UseCreditCardPanel } from '../useCreditCardPanel'
@@ -27,11 +28,11 @@ interface PaymentMethodPanelProps {
 
 export function PaymentMethodPanel (props: PaymentMethodPanelProps) {
   const locale = React.useContext(LocaleContext)
-  const [continueWithCard, setContinueWithCard] = React.useState<boolean>(false)
+  const [continueWithCard, setContinueWithCard] = React.useState(false)
 
   return (
     <>
-      <h1>{locale.get('paymentMethodTitle')}</h1>
+      <DialogTitle>{locale.get('paymentMethodTitle')}</DialogTitle>
       <OrderSummary
         description={props.orderDescription}
         orderTotal={props.orderTotal}

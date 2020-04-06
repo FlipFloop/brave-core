@@ -11,7 +11,10 @@ import {
   Description,
   BatAmount,
   BatSymbol,
-  ExchangeAmount
+  ExchangeAmount,
+  StyledTable,
+  StyledTableHeader,
+  StyledTableCell
 } from './style'
 
 interface OrderSummaryProps {
@@ -24,28 +27,28 @@ export function OrderSummary (props: OrderSummaryProps) {
   const locale = React.useContext(LocaleContext)
   return (
     <Container>
-      <table>
+      <StyledTable>
         <thead>
           <tr>
-            <th>{locale.get('itemSelected')}</th>
-            <th>{locale.get('orderTotal')}</th>
+            <StyledTableHeader>{locale.get('itemSelected')}</StyledTableHeader>
+            <StyledTableHeader>{locale.get('orderTotal')}</StyledTableHeader>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>
+            <StyledTableCell>
               <Description>{props.description}</Description>
-            </td>
-            <td>
+            </StyledTableCell>
+            <StyledTableCell>
               <BatAmount>
                 {props.orderTotal}
                 <BatSymbol>{locale.get('bat')}</BatSymbol>
               </BatAmount>
               <ExchangeAmount>{props.orderTotalConverted}</ExchangeAmount>
-            </td>
+            </StyledTableCell>
           </tr>
         </tbody>
-      </table>
+      </StyledTable>
     </Container>
   )
 }

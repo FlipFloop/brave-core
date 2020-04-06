@@ -5,17 +5,17 @@
 import * as React from 'react'
 
 import { LocaleContext } from '../localeContext'
-import { Container, ImageContainer, TextContainer } from './style'
-import batReferSrc from './assets/bat_refer.svg'
+import { VectorImage } from './vectorImage'
+import { Container, ImageContainer, TextContainer, Header, Text } from './style'
 
 export function PaymentComplete (props: {}) {
   const locale = React.useContext(LocaleContext)
   return (
     <Container>
-      <ImageContainer><img src={batReferSrc} /></ImageContainer>
+      <ImageContainer><VectorImage /></ImageContainer>
       <TextContainer>
-        <h2>{locale.get('goodToGo')}</h2>
-        <p>{locale.get('enjoyYourPurchase')}</p>
+        <Header>{locale.get('goodToGo')}</Header>
+        <Text>{locale.get('enjoyYourPurchase')}</Text>
       </TextContainer>
     </Container>
   )
