@@ -48,7 +48,6 @@ class ViewCounterService : public KeyedService,
   base::Value GetCurrentWallpaper() const;
   base::Value GetTopSites(bool for_webui = false) const;
   std::vector<TopSite> GetTopSitesVectorData() const;
-  std::string GetURLPrefix() const;
 
   // This api can be used for fast checking before SR component registration.
   // NOTE: SR Data could not be availble even if this returns true.
